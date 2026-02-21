@@ -269,7 +269,9 @@ export function SurveyApp() {
                   {visibleSections.map((item, index) => (
                     <Button
                       key={item.id}
+                      size="sm"
                       variant={index === sectionIndex ? "default" : "outline"}
+                      className="h-7 min-w-7 px-2 text-xs font-semibold"
                       onClick={() => setSectionIndex(index)}
                     >
                       {item.id}
