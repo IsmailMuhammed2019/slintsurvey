@@ -5,39 +5,27 @@ This app is a migration of the SLINT institutional survey into Next.js with:
 - shadcn UI components
 - PostgreSQL persistence
 - Prisma ORM
-- Local Docker Compose for the database
+- Docker Compose for both app and database
 
-## 1) Start PostgreSQL (Docker)
-
-```bash
-docker compose up -d
-```
-
-## 2) Configure environment
+## Run Everything In Containers
 
 ```bash
-cp .env.example .env
-```
-
-## 3) Create Prisma client + migrate schema
-
-```bash
-npm run db:generate
-npm run db:migrate -- --name init
-```
-
-## 4) Run the app
-
-```bash
-npm run dev
+docker compose up -d --build
 ```
 
 Open `http://localhost:3000`.
 
+## Stop Containers
+
+```bash
+docker compose down
+```
+
 ## Notes
 
+- The app container runs Prisma migrations on startup (`prisma migrate deploy`) and then starts Next.js.
+- PostgreSQL runs in `slint-postgres` with persistent volume `postgres_data`.
 - API routes:
   - `POST /api/responses` submit survey
   - `GET /api/responses` list responses
   - `DELETE /api/responses/:id` delete response
-- Logo asset is served from `public/logo.png`.
