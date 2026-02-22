@@ -150,13 +150,7 @@ export default function RemixedSurvey() {
         <div className="mx-auto max-w-6xl px-4 py-6">
           <div className="flex flex-col items-center gap-3 text-center md:flex-row md:justify-between md:text-left">
             <div className="flex items-center gap-3">
-              <div className="flex h-14 w-14 items-center justify-center rounded-xl border border-slate-200 bg-white shadow-sm">
-                <img
-                  src="/logo.png"
-                  alt="SLINT logo"
-                  className="h-10 w-10 object-contain"
-                />
-              </div>
+              <img src="/logo.png" alt="SLINT logo" className="h-16 w-16 object-contain md:h-20 md:w-20" />
               <div>
                 <h1 className="text-2xl font-bold tracking-[0.18em] text-[#184968]">SLINT</h1>
                 <p className="text-[10px] tracking-[0.32em] text-slate-500 uppercase">Sierra Leoneans in Technology</p>
