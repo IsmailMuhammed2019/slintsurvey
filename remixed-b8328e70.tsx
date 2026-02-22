@@ -18,17 +18,19 @@ function SurveyQuestion({
   question,
   answers,
   setAnswer,
+  invalid,
 }: {
   question: Question;
   answers: SurveyAnswers;
   setAnswer: (id: string, value: string | string[]) => void;
+  invalid: boolean;
 }) {
   const value = answers[question.id];
 
   if (!isQuestionVisible(question, answers)) return null;
 
   return (
-    <Card className="border border-slate-200 bg-white shadow-sm">
+    <Card className={cn("border bg-white shadow-sm", invalid ? "border-red-300" : "border-slate-200")}>
       <CardHeader className="space-y-2 pb-3">
         <CardTitle className="text-base leading-relaxed text-slate-900">
           {question.text}
@@ -97,9 +99,17 @@ function SurveyQuestion({
             })}
           </div>
         ) : null}
+        {invalid ? <p className="text-xs text-red-600">This field is required before continuing.</p> : null}
       </CardContent>
     </Card>
   );
+}
+
+function isQuestionAnswered(question: Question, value: SurveyAnswers[string]): boolean {
+  if (question.type === "checkbox") {
+    return Array.isArray(value) && value.length > 0;
+  }
+  return typeof value === "string" && value.trim().length > 0;
 }
 
 export default function RemixedSurvey() {
@@ -108,6 +118,7 @@ export default function RemixedSurvey() {
   const [submitting, setSubmitting] = useState(false);
   const [done, setDone] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [showValidation, setShowValidation] = useState(false);
 
   const visibleSections = useMemo(() => getVisibleSections(answers), [answers]);
   const section = visibleSections[sectionIndex];
@@ -116,10 +127,29 @@ export default function RemixedSurvey() {
   const groupedBasicIds = useMemo(() => new Set(["A1", "A2", "A3", "A4"]), []);
   const showBasicInfoCard = section?.id === "A" && ["A1", "A2", "A3", "A4"].every((id) => questions.some((q) => q.id === id));
   const visibleQuestions = showBasicInfoCard ? questions.filter((question) => !groupedBasicIds.has(question.id)) : questions;
+  const visibleSectionQuestions = useMemo(() => questions.filter((question) => isQuestionVisible(question, answers)), [questions, answers]);
+  const invalidQuestionIds = useMemo(
+    () => visibleSectionQuestions.filter((question) => !isQuestionAnswered(question, answers[question.id])).map((question) => question.id),
+    [visibleSectionQuestions, answers]
+  );
+  const invalidQuestionSet = useMemo(() => new Set(invalidQuestionIds), [invalidQuestionIds]);
 
   const setAnswer = useCallback((id: string, value: string | string[]) => {
     setAnswers((prev) => ({ ...prev, [id]: value }));
   }, []);
+
+  function goToSection(targetIndex: number) {
+    if (targetIndex <= sectionIndex) {
+      setSectionIndex(targetIndex);
+      return;
+    }
+    if (invalidQuestionIds.length > 0) {
+      setShowValidation(true);
+      return;
+    }
+    setShowValidation(false);
+    setSectionIndex(targetIndex);
+  }
 
   async function submitSurvey() {
     setSubmitting(true);
@@ -217,7 +247,7 @@ export default function RemixedSurvey() {
                     "flex h-6 min-w-6 items-center justify-center rounded-full border px-2 text-[10px] transition",
                     index === sectionIndex ? "border-[#1B4F72] bg-[#eaf3f8] text-[#1B4F72]" : "border-slate-200 bg-white text-slate-500"
                   )}
-                  onClick={() => setSectionIndex(index)}
+                  onClick={() => goToSection(index)}
                 >
                   {item.id}
                 </button>
@@ -227,8 +257,18 @@ export default function RemixedSurvey() {
             <div>
               <p className="text-[10px] font-semibold tracking-widest text-[#1B4F72] uppercase">Section {section?.id}</p>
               <h2 className="mt-1 text-2xl font-bold text-slate-900">{section?.title}</h2>
-              {section?.required ? <p className="mt-1 text-xs text-amber-700">Required - all fields must be completed</p> : null}
+              <p className="mt-1 text-xs text-amber-700">Required - all fields must be completed</p>
             </div>
+
+            {showValidation && invalidQuestionIds.length > 0 ? (
+              <Card className="border-red-300 bg-red-50">
+                <CardContent className="pt-4">
+                  <p className="text-sm text-red-700">
+                    Complete all questions in Section {section?.id} before moving to the next section.
+                  </p>
+                </CardContent>
+              </Card>
+            ) : null}
 
             <div className="grid gap-4 md:grid-cols-2">
               {showBasicInfoCard ? (
@@ -243,6 +283,9 @@ export default function RemixedSurvey() {
                         <div className="space-y-2">
                           <Label htmlFor="A1">Full Name *</Label>
                           <Input id="A1" value={typeof answers.A1 === "string" ? answers.A1 : ""} onChange={(e) => setAnswer("A1", e.target.value)} />
+                          {showValidation && invalidQuestionSet.has("A1") ? (
+                            <p className="text-xs text-red-600">This field is required before continuing.</p>
+                          ) : null}
                         </div>
                         <div className="space-y-2">
                           <Label htmlFor="A2">Email Address *</Label>
@@ -252,14 +295,23 @@ export default function RemixedSurvey() {
                             value={typeof answers.A2 === "string" ? answers.A2 : ""}
                             onChange={(e) => setAnswer("A2", e.target.value)}
                           />
+                          {showValidation && invalidQuestionSet.has("A2") ? (
+                            <p className="text-xs text-red-600">This field is required before continuing.</p>
+                          ) : null}
                         </div>
                         <div className="space-y-2">
                           <Label htmlFor="A3">Phone Number</Label>
                           <Input id="A3" value={typeof answers.A3 === "string" ? answers.A3 : ""} onChange={(e) => setAnswer("A3", e.target.value)} />
+                          {showValidation && invalidQuestionSet.has("A3") ? (
+                            <p className="text-xs text-red-600">This field is required before continuing.</p>
+                          ) : null}
                         </div>
                         <div className="space-y-2">
                           <Label htmlFor="A4">Location (City & Country)</Label>
                           <Input id="A4" value={typeof answers.A4 === "string" ? answers.A4 : ""} onChange={(e) => setAnswer("A4", e.target.value)} />
+                          {showValidation && invalidQuestionSet.has("A4") ? (
+                            <p className="text-xs text-red-600">This field is required before continuing.</p>
+                          ) : null}
                         </div>
                       </div>
                     </CardContent>
@@ -271,7 +323,12 @@ export default function RemixedSurvey() {
                 const isFullWidth = question.type === "checkbox" || question.type === "radio" || question.type === "textarea";
                 return (
                   <div key={question.id} className={isFullWidth ? "md:col-span-2" : "md:col-span-1"}>
-                    <SurveyQuestion question={question} answers={answers} setAnswer={setAnswer} />
+                    <SurveyQuestion
+                      question={question}
+                      answers={answers}
+                      setAnswer={setAnswer}
+                      invalid={showValidation && invalidQuestionSet.has(question.id)}
+                    />
                   </div>
                 );
               })}
@@ -280,13 +337,30 @@ export default function RemixedSurvey() {
             {error ? <p className="text-sm text-red-600">{error}</p> : null}
 
             <div className="flex justify-between">
-              <Button variant="outline" onClick={() => setSectionIndex((prev) => Math.max(0, prev - 1))} disabled={sectionIndex === 0}>
+              <Button
+                variant="outline"
+                onClick={() => {
+                  setShowValidation(false);
+                  setSectionIndex((prev) => Math.max(0, prev - 1));
+                }}
+                disabled={sectionIndex === 0}
+              >
                 Previous
               </Button>
               {sectionIndex < visibleSections.length - 1 ? (
-                <Button onClick={() => setSectionIndex((prev) => prev + 1)}>Next Section</Button>
+                <Button onClick={() => goToSection(sectionIndex + 1)}>Next Section</Button>
               ) : (
-                <Button disabled={submitting || !answers.A1 || !answers.A2} onClick={submitSurvey}>
+                <Button
+                  disabled={submitting}
+                  onClick={() => {
+                    if (invalidQuestionIds.length > 0) {
+                      setShowValidation(true);
+                      return;
+                    }
+                    setShowValidation(false);
+                    void submitSurvey();
+                  }}
+                >
                   {submitting ? "Saving..." : "Submit Response"}
                 </Button>
               )}
