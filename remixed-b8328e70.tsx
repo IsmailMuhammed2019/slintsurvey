@@ -146,13 +146,30 @@ export default function RemixedSurvey() {
 
   return (
     <main className="min-h-screen bg-[#f3f5f7]">
-      <div className="border-b border-slate-200 bg-gradient-to-b from-white to-slate-100">
-        <div className="mx-auto max-w-6xl px-4 py-9 text-center">
-          <h1 className="text-3xl font-bold tracking-[0.25em] text-[#184968]">SLINT</h1>
-          <p className="mt-2 text-[10px] tracking-[0.35em] text-slate-500 uppercase">Sierra Leoneans in Technology</p>
-          <div className="mx-auto mt-3 h-px w-12 bg-[#1c8f94]" />
-          <p className="mt-4 text-lg font-semibold text-slate-800">Institutional Diagnostic Survey</p>
-          <p className="mt-1 text-xs text-slate-500">2026-2029 Strategic Term · Members Only</p>
+      <div className="border-b border-slate-200 bg-gradient-to-b from-slate-50 via-white to-slate-100">
+        <div className="mx-auto max-w-6xl px-4 py-6">
+          <div className="flex flex-col items-center gap-3 text-center md:flex-row md:justify-between md:text-left">
+            <div className="flex items-center gap-3">
+              <div className="flex h-14 w-14 items-center justify-center rounded-xl border border-slate-200 bg-white shadow-sm">
+                <img
+                  src="/logo.png"
+                  alt="SLINT logo"
+                  className="h-10 w-10 object-contain"
+                />
+              </div>
+              <div>
+                <h1 className="text-2xl font-bold tracking-[0.18em] text-[#184968]">SLINT</h1>
+                <p className="text-[10px] tracking-[0.32em] text-slate-500 uppercase">Sierra Leoneans in Technology</p>
+              </div>
+            </div>
+            <Badge variant="outline" className="border-slate-300 bg-white px-3 py-1 text-[11px] text-slate-600">
+              Members Only
+            </Badge>
+          </div>
+          <div className="mt-4 border-t border-slate-200 pt-4 text-center md:text-left">
+            <p className="text-xl font-semibold text-slate-800">Institutional Diagnostic Survey</p>
+            <p className="mt-1 text-xs text-slate-500">2026-2029 Strategic Term</p>
+          </div>
         </div>
       </div>
 
