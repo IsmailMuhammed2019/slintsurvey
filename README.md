@@ -43,6 +43,8 @@ docker compose down
 - Default admin credentials (change in `.env`):
   - Username: `admin`
   - Password: `SLINT@Secure2026#Admin`
+- Survey access code (required to view/submit the survey; set `SURVEY_ACCESS_CODE` to override):
+  - Default: `SLINT-9Kx#2026@Survey$Secure`
 - API routes:
   - `POST /api/responses` submit survey
   - `GET /api/responses` list responses (auth required)

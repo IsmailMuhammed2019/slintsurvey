@@ -1,9 +1,28 @@
+import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 
 import { isRequestAuthenticated } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import {
+  getSurveyAccessCookieValue,
+  SURVEY_ACCESS_COOKIE_NAME,
+} from "@/lib/survey-access";
 import { getCluster, type SurveyAnswers } from "@/lib/survey";
+
+function hasSurveyAccess(request: NextRequest | Request): boolean {
+  if ("cookies" in request && typeof request.cookies?.get === "function") {
+    const cookieValue = request.cookies.get(SURVEY_ACCESS_COOKIE_NAME)?.value;
+    return cookieValue === getSurveyAccessCookieValue();
+  }
+  const cookieHeader = request.headers.get("cookie");
+  if (!cookieHeader) return false;
+  const match = cookieHeader
+    .split(";")
+    .map((s) => s.trim())
+    .find((s) => s.startsWith(`${SURVEY_ACCESS_COOKIE_NAME}=`));
+  return match?.split("=")[1] === getSurveyAccessCookieValue();
+}
 
 const createResponseSchema = z.object({
   answers: z.record(z.string(), z.union([z.string(), z.array(z.string())])),
@@ -21,6 +40,13 @@ export async function GET(request: Request) {
 }
 
 export async function POST(request: Request) {
+  if (!hasSurveyAccess(request)) {
+    return NextResponse.json(
+      { error: "Valid access code required to submit the survey." },
+      { status: 401 }
+    );
+  }
+
   const body = await request.json().catch(() => null);
   const parsed = createResponseSchema.safeParse(body);
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -113,12 +113,46 @@ function isQuestionAnswered(question: Question, value: SurveyAnswers[string]): b
 }
 
 export default function RemixedSurvey() {
+  const [hasAccess, setHasAccess] = useState<boolean | null>(null);
+  const [accessCode, setAccessCode] = useState("");
+  const [accessError, setAccessError] = useState<string | null>(null);
+  const [validating, setValidating] = useState(false);
   const [answers, setAnswers] = useState<SurveyAnswers>({});
   const [sectionIndex, setSectionIndex] = useState(0);
   const [submitting, setSubmitting] = useState(false);
   const [done, setDone] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [showValidation, setShowValidation] = useState(false);
+
+  useEffect(() => {
+    fetch("/api/survey/check")
+      .then((r) => (r.ok ? setHasAccess(true) : setHasAccess(false)))
+      .catch(() => setHasAccess(false));
+  }, []);
+
+  async function handleValidateCode(e: React.FormEvent) {
+    e.preventDefault();
+    setValidating(true);
+    setAccessError(null);
+    try {
+      const res = await fetch("/api/survey/validate-code", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ code: accessCode.trim() }),
+      });
+      if (res.ok) {
+        setHasAccess(true);
+        setAccessCode("");
+      } else {
+        const data = await res.json().catch(() => ({}));
+        setAccessError(data.error ?? "Invalid access code.");
+      }
+    } catch {
+      setAccessError("Could not verify access code.");
+    } finally {
+      setValidating(false);
+    }
+  }
 
   const visibleSections = useMemo(() => getVisibleSections(answers), [answers]);
   const section = visibleSections[sectionIndex];
@@ -209,7 +243,40 @@ export default function RemixedSurvey() {
       </div>
 
       <div className="mx-auto max-w-6xl px-4 py-7">
-        {done ? (
+        {hasAccess === null ? (
+          <div className="flex min-h-[200px] items-center justify-center">
+            <p className="text-sm text-slate-500">Checking access...</p>
+          </div>
+        ) : !hasAccess ? (
+          <Card className="mx-auto max-w-md border-slate-200 shadow-sm">
+            <CardHeader>
+              <CardTitle>Access Code Required</CardTitle>
+              <CardDescription>
+                Enter the access code you received to complete this survey. Only authorized participants can submit responses.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <form onSubmit={handleValidateCode} className="space-y-4">
+                <div className="space-y-2">
+                  <Label htmlFor="access-code">Access Code</Label>
+                  <Input
+                    id="access-code"
+                    type="text"
+                    placeholder="Enter your access code"
+                    value={accessCode}
+                    onChange={(e) => setAccessCode(e.target.value)}
+                    autoComplete="one-time-code"
+                    autoFocus
+                  />
+                </div>
+                {accessError ? <p className="text-sm text-red-600">{accessError}</p> : null}
+                <Button type="submit" className="w-full" disabled={validating || !accessCode.trim()}>
+                  {validating ? "Verifying..." : "Continue"}
+                </Button>
+              </form>
+            </CardContent>
+          </Card>
+        ) : done ? (
           <Card className="border-slate-200 shadow-sm">
             <CardHeader>
               <CardTitle>Thank you for your submission</CardTitle>

@@ -10,6 +10,7 @@ services:
     environment:
       NODE_ENV: production
       DATABASE_URL: postgresql://slint:slint@postgres:5432/slint?schema=public
+      SURVEY_ACCESS_CODE: ${SURVEY_ACCESS_CODE:-SLINT-9Kx#2026@Survey$Secure}
     ports:
       - "${APP_PORT:-3300}:3000"
 
