@@ -20,13 +20,17 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Invalid username or password." }, { status: 401 });
   }
 
+  const requestUrl = new URL(request.url);
+  const forwardedProto = request.headers.get("x-forwarded-proto");
+  const isHttpsRequest = requestUrl.protocol === "https:" || forwardedProto === "https";
+
   const response = NextResponse.json({ ok: true });
   response.cookies.set({
     name: AUTH_COOKIE_NAME,
     value: getSessionValue(),
     httpOnly: true,
     sameSite: "lax",
-    secure: process.env.NODE_ENV === "production",
+    secure: isHttpsRequest,
     path: "/",
     maxAge: 60 * 60 * 8,
   });

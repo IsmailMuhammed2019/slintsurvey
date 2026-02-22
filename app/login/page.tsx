@@ -18,7 +18,8 @@ export default function LoginPage() {
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const requested = params.get("next") ?? "/dashboard";
-    setNextPath(requested.startsWith("/") ? requested : "/dashboard");
+    const normalizedPath = requested.startsWith("/") ? requested : "/dashboard";
+    setNextPath(normalizedPath === "/login" ? "/dashboard" : normalizedPath);
   }, []);
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
