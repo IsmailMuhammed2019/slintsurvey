@@ -113,6 +113,9 @@ export default function RemixedSurvey() {
   const section = visibleSections[sectionIndex];
   const questions = section ? QUESTIONS[section.id] ?? [] : [];
   const progress = visibleSections.length ? ((sectionIndex + 1) / visibleSections.length) * 100 : 0;
+  const groupedBasicIds = useMemo(() => new Set(["A1", "A2", "A3", "A4"]), []);
+  const showBasicInfoCard = section?.id === "A" && ["A1", "A2", "A3", "A4"].every((id) => questions.some((q) => q.id === id));
+  const visibleQuestions = showBasicInfoCard ? questions.filter((question) => !groupedBasicIds.has(question.id)) : questions;
 
   const setAnswer = useCallback((id: string, value: string | string[]) => {
     setAnswers((prev) => ({ ...prev, [id]: value }));
@@ -217,7 +220,43 @@ export default function RemixedSurvey() {
             </div>
 
             <div className="grid gap-4 md:grid-cols-2">
-              {questions.map((question) => {
+              {showBasicInfoCard ? (
+                <div className="md:col-span-2">
+                  <Card className="border border-slate-200 bg-white shadow-sm">
+                    <CardHeader className="space-y-1 pb-3">
+                      <CardTitle className="text-base text-slate-900">Basic contact details</CardTitle>
+                      <CardDescription>Please provide your core contact information.</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="grid gap-3 md:grid-cols-2">
+                        <div className="space-y-2">
+                          <Label htmlFor="A1">Full Name *</Label>
+                          <Input id="A1" value={typeof answers.A1 === "string" ? answers.A1 : ""} onChange={(e) => setAnswer("A1", e.target.value)} />
+                        </div>
+                        <div className="space-y-2">
+                          <Label htmlFor="A2">Email Address *</Label>
+                          <Input
+                            id="A2"
+                            type="email"
+                            value={typeof answers.A2 === "string" ? answers.A2 : ""}
+                            onChange={(e) => setAnswer("A2", e.target.value)}
+                          />
+                        </div>
+                        <div className="space-y-2">
+                          <Label htmlFor="A3">Phone Number</Label>
+                          <Input id="A3" value={typeof answers.A3 === "string" ? answers.A3 : ""} onChange={(e) => setAnswer("A3", e.target.value)} />
+                        </div>
+                        <div className="space-y-2">
+                          <Label htmlFor="A4">Location (City & Country)</Label>
+                          <Input id="A4" value={typeof answers.A4 === "string" ? answers.A4 : ""} onChange={(e) => setAnswer("A4", e.target.value)} />
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+              ) : null}
+
+              {visibleQuestions.map((question) => {
                 const isFullWidth = question.type === "checkbox" || question.type === "radio" || question.type === "textarea";
                 return (
                   <div key={question.id} className={isFullWidth ? "md:col-span-2" : "md:col-span-1"}>
