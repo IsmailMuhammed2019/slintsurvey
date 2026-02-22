@@ -1,5 +1,5 @@
-import { SurveyPublic } from "@/components/survey-public";
+import RemixedSurvey from "@/remixed-b8328e70";
 
 export default function Home() {
-  return <SurveyPublic />;
+  return <RemixedSurvey />;
 }
