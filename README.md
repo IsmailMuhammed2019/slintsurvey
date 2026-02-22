@@ -42,7 +42,7 @@ docker compose down
 - Login route: `/login`
 - Default admin credentials (change in `.env`):
   - Username: `admin`
-  - Password: `slint123`
+  - Password: `SLINT@Secure2026#Admin`
 - API routes:
   - `POST /api/responses` submit survey
   - `GET /api/responses` list responses (auth required)

@@ -7,7 +7,7 @@ export function getAdminUsername(): string {
 }
 
 export function getAdminPassword(): string {
-  return process.env.ADMIN_PASSWORD ?? "slint123";
+  return process.env.ADMIN_PASSWORD ?? "SLINT@Secure2026#Admin";
 }
 
 export function getSessionValue(): string {
