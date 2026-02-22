@@ -1,0 +1,28 @@
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
+
+import { AUTH_COOKIE_NAME, getSessionValue } from "@/lib/auth";
+
+const protectedRoutes = ["/dashboard", "/responses"];
+
+export function proxy(request: NextRequest) {
+  const path = request.nextUrl.pathname;
+  const isProtected = protectedRoutes.some((route) => path === route || path.startsWith(`${route}/`));
+
+  if (!isProtected) {
+    return NextResponse.next();
+  }
+
+  const cookieValue = request.cookies.get(AUTH_COOKIE_NAME)?.value;
+  if (cookieValue === getSessionValue()) {
+    return NextResponse.next();
+  }
+
+  const loginUrl = new URL("/login", request.url);
+  loginUrl.searchParams.set("next", path);
+  return NextResponse.redirect(loginUrl);
+}
+
+export const config = {
+  matcher: ["/dashboard/:path*", "/responses/:path*"],
+};

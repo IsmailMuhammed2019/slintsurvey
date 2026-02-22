@@ -1,5 +1,5 @@
-import { SurveyApp } from "@/components/survey-app";
+import { SurveyPublic } from "@/components/survey-public";
 
 export default function Home() {
-  return <SurveyApp />;
+  return <SurveyPublic />;
 }

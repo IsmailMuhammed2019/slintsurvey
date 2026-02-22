@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 
+import { isRequestAuthenticated } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { getCluster, type SurveyAnswers } from "@/lib/survey";
 
@@ -8,7 +9,11 @@ const createResponseSchema = z.object({
   answers: z.record(z.string(), z.union([z.string(), z.array(z.string())])),
 });
 
-export async function GET() {
+export async function GET(request: Request) {
+  if (!isRequestAuthenticated(request)) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   const responses = await prisma.surveyResponse.findMany({
     orderBy: { createdAt: "desc" },
   });

@@ -25,7 +25,13 @@ docker compose down
 
 - The app container runs Prisma migrations on startup (`prisma migrate deploy`) and then starts Next.js.
 - PostgreSQL runs in `slint-postgres` with persistent volume `postgres_data`.
+- Public route: `/` (survey only)
+- Protected admin routes: `/dashboard` and `/responses`
+- Login route: `/login`
+- Default admin credentials (change in `.env`):
+  - Username: `admin`
+  - Password: `slint123`
 - API routes:
   - `POST /api/responses` submit survey
-  - `GET /api/responses` list responses
-  - `DELETE /api/responses/:id` delete response
+  - `GET /api/responses` list responses (auth required)
+  - `DELETE /api/responses/:id` delete response (auth required)
