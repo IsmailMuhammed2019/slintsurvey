@@ -15,6 +15,18 @@ docker compose up -d --build
 
 Open `http://localhost:3000`.
 
+## Run With Custom Host Ports (Recommended on shared servers)
+
+Set host ports when starting the stack to avoid conflicts with other containers:
+
+```bash
+APP_PORT=3300 POSTGRES_PORT=55432 docker compose up -d --build
+```
+
+Then open `http://localhost:3300`.
+
+You can choose any free host ports. Inside containers, the app still runs on `3000` and Postgres on `5432`.
+
 ## Stop Containers
 
 ```bash
