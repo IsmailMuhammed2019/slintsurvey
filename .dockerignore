@@ -3,4 +3,9 @@ node_modules
 .git
 .DS_Store
 npm-debug.log*
-.env
+.env*
+TRIGGER_CACHE_BUST_*
+large_payload.json
+build.log
+app_logs.txt
+app_logs_debug.txt

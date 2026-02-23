@@ -6,7 +6,9 @@ import { AUTH_COOKIE_NAME, getSessionValue } from "@/lib/auth";
 const protectedRoutes = ["/dashboard", "/responses"];
 
 export function proxy(request: NextRequest) {
+  console.log(`[PROXY-ENTRY] ${request.method} ${request.nextUrl.pathname}`);
   const path = request.nextUrl.pathname;
+  console.log(`[PROXY] ${request.method} ${path}`);
   const isProtected = protectedRoutes.some((route) => path === route || path.startsWith(`${route}/`));
 
   if (!isProtected) {
@@ -24,5 +26,5 @@ export function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/dashboard/:path*", "/responses/:path*"],
+  matcher: ["/dashboard/:path*", "/responses/:path*", "/api/:path*"],
 };

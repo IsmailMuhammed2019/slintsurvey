@@ -40,7 +40,13 @@ export async function GET(request: Request) {
 }
 
 export async function POST(request: Request) {
-  console.log("POST /api/responses started");
+  console.log("POST /api/responses started [DEBUG]");
+  try {
+    const headerObj = Object.fromEntries(request.headers.entries());
+    console.log("Headers:", JSON.stringify(headerObj));
+  } catch (e) {
+    console.log("Failed to log headers");
+  }
   if (!hasSurveyAccess(request)) {
     console.log("Access denied: missing or invalid cookie");
     return NextResponse.json(

@@ -1,0 +1,31 @@
+app-1  | Prisma schema loaded from prisma/schema.prisma
+app-1  | Datasource "db": PostgreSQL database "slint", schema "public" at "postgres:5432"
+app-1  | 
+app-1  | 1 migration found in prisma/migrations
+app-1  | 
+app-1  | 
+app-1  | No pending migrations to apply.
+app-1  | npm notice
+app-1  | npm notice New major version of npm available! 10.8.2 -> 11.10.1
+app-1  | npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.10.1
+app-1  | npm notice To update run: npm install -g npm@11.10.1
+app-1  | npm notice
+app-1  | 
+app-1  | > app@0.1.0 start
+app-1  | > next start --hostname 0.0.0.0 --port 3000
+app-1  | 
+app-1  | ▲ Next.js 16.1.6
+app-1  | - Local:         http://localhost:3000
+app-1  | - Network:       http://0.0.0.0:3000
+app-1  | 
+app-1  | ✓ Starting...
+app-1  | ✓ Ready in 139ms
+app-1  | POST /api/responses started
+app-1  | Reading request body...
+app-1  | Body received: has body
+app-1  | Validation successful
+app-1  | Submitting for: Large Load Test (large@example.com)
+app-1  | Attempting Prisma create...
+app-1  | prisma:info Starting a postgresql pool with 13 connections.
+app-1  | prisma:query INSERT INTO "public"."SurveyResponse" ("id","createdAt","fullName","email","phone","location","profile","cluster","fundingNeed","fundingRange","cardInterest","timeCommitment","answers") VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13) RETURNING "public"."SurveyResponse"."id", "public"."SurveyResponse"."createdAt", "public"."SurveyResponse"."fullName", "public"."SurveyResponse"."email", "public"."SurveyResponse"."phone", "public"."SurveyResponse"."location", "public"."SurveyResponse"."profile", "public"."SurveyResponse"."cluster", "public"."SurveyResponse"."fundingNeed", "public"."SurveyResponse"."fundingRange", "public"."SurveyResponse"."cardInterest", "public"."SurveyResponse"."timeCommitment", "public"."SurveyResponse"."answers"
+app-1  | Prisma created successfully in 80ms! ID: cmlz0foau0000qf34u3f7ajax
