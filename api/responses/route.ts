@@ -74,9 +74,9 @@ export async function POST(request: Request) {
 
   try {
     console.log("Attempting Prisma create...");
-    // Create a timeout promise to prevent hanging
+    // Create a timeout promise to prevent hanging - increased to 30s
     const timeoutPromise = new Promise((_, reject) =>
-      setTimeout(() => reject(new Error("Database operation timed out after 5s")), 5000)
+      setTimeout(() => reject(new Error("Database operation timed out after 30s")), 30000)
     );
 
     const createPromise = prisma.surveyResponse.create({
@@ -95,10 +95,12 @@ export async function POST(request: Request) {
       },
     });
 
+    const startTime = Date.now();
     const response = await Promise.race([createPromise, timeoutPromise]) as any;
+    const duration = Date.now() - startTime;
 
-    console.log("Prisma created successfully! ID:", response.id);
-    return NextResponse.json({ response }, { status: 201 });
+    console.log(`Prisma created successfully in ${duration}ms! ID:`, response.id);
+    return NextResponse.json({ response, duration }, { status: 201 });
   } catch (error) {
     console.error("CRITICAL: Survey submission error:", error);
     if (error instanceof Error) {
