@@ -19,8 +19,8 @@ function hasSurveyAccess(request: NextRequest | Request): boolean {
   if (!cookieHeader) return false;
   const match = cookieHeader
     .split(";")
-    .map((s) => s.trim())
-    .find((s) => s.startsWith(`${SURVEY_ACCESS_COOKIE_NAME}=`));
+    .map((s: string) => s.trim())
+    .find((s: string) => s.startsWith(`${SURVEY_ACCESS_COOKIE_NAME}=`));
   return match?.split("=")[1] === getSurveyAccessCookieValue();
 }
 
@@ -40,43 +40,80 @@ export async function GET(request: Request) {
 }
 
 export async function POST(request: Request) {
+  console.log("POST /api/responses started");
   if (!hasSurveyAccess(request)) {
+    console.log("Access denied: missing or invalid cookie");
     return NextResponse.json(
       { error: "Valid access code required to submit the survey." },
       { status: 401 }
     );
   }
 
+  console.log("Reading request body...");
   const body = await request.json().catch(() => null);
+  console.log("Body received:", body ? "has body" : "null body");
+
   const parsed = createResponseSchema.safeParse(body);
 
   if (!parsed.success) {
+    console.log("Validation failed:", parsed.error.format());
     return NextResponse.json({ error: "Invalid payload" }, { status: 400 });
   }
 
+  console.log("Validation successful");
   const answers = parsed.data.answers as SurveyAnswers;
   const fullName = typeof answers.A1 === "string" ? answers.A1.trim() : "";
   const email = typeof answers.A2 === "string" ? answers.A2.trim() : "";
 
+  console.log(`Submitting for: ${fullName} (${email})`);
+
   if (!fullName || !email) {
+    console.log("Missing fullName or email");
     return NextResponse.json({ error: "Full name and email are required." }, { status: 400 });
   }
 
-  const response = await prisma.surveyResponse.create({
-    data: {
-      fullName,
-      email,
-      phone: typeof answers.A3 === "string" ? answers.A3 : null,
-      location: typeof answers.A4 === "string" ? answers.A4 : null,
-      profile: Array.isArray(answers.B1) ? answers.B1 : [],
-      cluster: getCluster(answers),
-      fundingNeed: typeof answers.G6 === "string" ? answers.G6 : null,
-      fundingRange: typeof answers.G8 === "string" ? answers.G8 : null,
-      cardInterest: typeof answers.K5 === "string" ? answers.K5 : null,
-      timeCommitment: typeof answers.N1 === "string" ? answers.N1 : null,
-      answers: answers as object,
-    },
-  });
+  try {
+    console.log("Attempting Prisma create...");
+    // Create a timeout promise to prevent hanging
+    const timeoutPromise = new Promise((_, reject) =>
+      setTimeout(() => reject(new Error("Database operation timed out after 5s")), 5000)
+    );
 
-  return NextResponse.json({ response }, { status: 201 });
+    const createPromise = prisma.surveyResponse.create({
+      data: {
+        fullName,
+        email,
+        phone: typeof answers.A3 === "string" ? answers.A3 : null,
+        location: typeof answers.A4 === "string" ? answers.A4 : null,
+        profile: Array.isArray(answers.B1) ? answers.B1 : [],
+        cluster: getCluster(answers),
+        fundingNeed: typeof answers.G6 === "string" ? answers.G6 : null,
+        fundingRange: typeof answers.G8 === "string" ? answers.G8 : null,
+        cardInterest: typeof answers.K5 === "string" ? answers.K5 : null,
+        timeCommitment: typeof answers.N1 === "string" ? answers.N1 : null,
+        answers: answers as object,
+      },
+    });
+
+    const response = await Promise.race([createPromise, timeoutPromise]) as any;
+
+    console.log("Prisma created successfully! ID:", response.id);
+    return NextResponse.json({ response }, { status: 201 });
+  } catch (error) {
+    console.error("CRITICAL: Survey submission error:", error);
+    if (error instanceof Error) {
+      console.error("Error name:", error.name);
+      console.error("Error message:", error.message);
+      console.error("Error stack:", error.stack);
+    }
+
+    return NextResponse.json(
+      {
+        error: "Internal server error during submission.",
+        details: error instanceof Error ? error.message : "Unknown error",
+        timestamp: new Date().toISOString()
+      },
+      { status: 500 }
+    );
+  }
 }

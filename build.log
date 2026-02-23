@@ -1,0 +1,129 @@
+--progress is a global compose flag, better use `docker compose --progress xx build ...
+time="2026-02-23T08:04:13Z" level=warning msg="The \"Secure\" variable is not set. Defaulting to a blank string."
+ Image slintsurvey-app Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 482B done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile: 568B done
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/node:20-alpine
+#3 DONE 0.0s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 94B done
+#4 DONE 0.0s
+
+#5 [builder 1/7] FROM docker.io/library/node:20-alpine
+#5 DONE 0.0s
+
+#6 [internal] load build context
+#6 transferring context: 3.93kB done
+#6 DONE 0.0s
+
+#7 [builder 2/7] WORKDIR /app
+#7 CACHED
+
+#8 [builder 3/7] COPY package*.json ./
+#8 CACHED
+
+#9 [builder 4/7] RUN npm ci
+#9 CACHED
+
+#10 [builder 5/7] COPY . .
+#10 DONE 0.1s
+
+#11 [builder 6/7] RUN npx prisma generate
+#11 1.010 Prisma schema loaded from prisma/schema.prisma
+#11 1.231 
+#11 1.231 ✔ Generated Prisma Client (v6.19.2) to ./node_modules/@prisma/client in 72ms
+#11 1.231 
+#11 1.231 Start by importing your Prisma Client (See: https://pris.ly/d/importing-client)
+#11 1.231 
+#11 1.231 Tip: Interested in query caching in just a few lines of code? Try Accelerate today! https://pris.ly/tip-3-accelerate
+#11 1.231 
+#11 DONE 1.3s
+
+#12 [builder 7/7] RUN npm run build
+#12 0.389 
+#12 0.389 > app@0.1.0 build
+#12 0.389 > next build
+#12 0.389 
+#12 0.940 Attention: Next.js now collects completely anonymous telemetry regarding usage.
+#12 0.941 This information is used to shape Next.js' roadmap and prioritize features.
+#12 0.941 You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
+#12 0.941 https://nextjs.org/telemetry
+#12 0.941 
+#12 0.947 ▲ Next.js 16.1.6 (Turbopack)
+#12 0.947 
+#12 1.031   Creating an optimized production build ...
+#12 3.767 ✓ Compiled successfully in 2.4s
+#12 3.772   Running TypeScript ...
+#12 6.219   Collecting page data using 11 workers ...
+#12 6.689   Generating static pages using 11 workers (0/12) ...
+#12 6.760   Generating static pages using 11 workers (3/12) 
+#12 6.860 The width(-1) and height(-1) of chart should be greater than 0,
+#12 6.860        please check the style of container, or the props width(100%) and height(100%),
+#12 6.860        or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+#12 6.860        height and width.
+#12 6.860 The width(-1) and height(-1) of chart should be greater than 0,
+#12 6.860        please check the style of container, or the props width(100%) and height(100%),
+#12 6.860        or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+#12 6.860        height and width.
+#12 6.860 The width(-1) and height(-1) of chart should be greater than 0,
+#12 6.860        please check the style of container, or the props width(100%) and height(100%),
+#12 6.860        or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+#12 6.860        height and width.
+#12 6.892   Generating static pages using 11 workers (6/12) 
+#12 6.939   Generating static pages using 11 workers (9/12) 
+#12 6.940 ✓ Generating static pages using 11 workers (12/12) in 251.5ms
+#12 6.943   Finalizing page optimization ...
+#12 6.949 
+#12 6.951 Route (app)
+#12 6.951 ┌ ○ /
+#12 6.951 ├ ○ /_not-found
+#12 6.951 ├ ƒ /api/auth/login
+#12 6.951 ├ ƒ /api/auth/logout
+#12 6.951 ├ ƒ /api/responses
+#12 6.951 ├ ƒ /api/responses/[id]
+#12 6.951 ├ ƒ /api/survey/check
+#12 6.951 ├ ƒ /api/survey/validate-code
+#12 6.951 ├ ○ /dashboard
+#12 6.951 ├ ○ /icon.svg
+#12 6.951 ├ ○ /login
+#12 6.951 └ ○ /responses
+#12 6.951 
+#12 6.951 
+#12 6.951 ƒ Proxy (Middleware)
+#12 6.951 
+#12 6.951 ○  (Static)   prerendered as static content
+#12 6.951 ƒ  (Dynamic)  server-rendered on demand
+#12 6.951 
+#12 DONE 7.2s
+
+#13 [runner 3/7] COPY --from=builder /app/package*.json ./
+#13 CACHED
+
+#14 [runner 4/7] COPY --from=builder /app/node_modules ./node_modules
+#14 CACHED
+
+#15 [runner 5/7] COPY --from=builder /app/.next ./.next
+#15 DONE 0.1s
+
+#16 [runner 6/7] COPY --from=builder /app/public ./public
+#16 DONE 0.1s
+
+#17 [runner 7/7] COPY --from=builder /app/prisma ./prisma
+#17 DONE 0.1s
+
+#18 exporting to image
+#18 exporting layers 0.0s done
+#18 writing image sha256:0832db44080e5a77f1d8b926e8c85eb7b9ec63feb506215df5725fcc72a19878 done
+#18 naming to docker.io/library/slintsurvey-app done
+#18 DONE 0.0s
+
+#19 resolving provenance for metadata file
+#19 DONE 0.0s
+ Image slintsurvey-app Built 
