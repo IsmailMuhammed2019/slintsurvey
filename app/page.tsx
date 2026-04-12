@@ -25,9 +25,6 @@ export default function HomePage() {
             <button onClick={() => setIsLoginOpen(true)} className="report-btn-secondary">
               Member Login
             </button>
-            <Link href="/survey" className="report-btn-primary">
-              Start Survey
-            </Link>
           </div>
         </div>
       </header>
