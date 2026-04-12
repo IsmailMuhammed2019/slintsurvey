@@ -1,13 +1,9 @@
 "use client";
 
-import { useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
-import LoginModal from "@/components/login-modal";
 import "./report.css";
 
 export default function HomePage() {
-  const [isLoginOpen, setIsLoginOpen] = useState(false);
 
   return (
     <div className="report-body">
@@ -20,11 +16,6 @@ export default function HomePage() {
               <span className="text-xl font-bold tracking-[0.1em] text-[#1B4F72]">SLINT</span>
               <p className="text-[9px] tracking-[0.2em] text-slate-500 uppercase leading-none">Sierra Leoneans in Technology</p>
             </div>
-          </div>
-          <div className="report-nav-btns">
-            <button onClick={() => setIsLoginOpen(true)} className="report-btn-secondary">
-              Member Login
-            </button>
           </div>
         </div>
       </header>
@@ -68,7 +59,7 @@ export default function HomePage() {
 
           <div className="report-co">
             <h4>Why This Report Matters Now</h4>
-            <p>This diagnostic lands at a convergence of national momentum unprecedented in Sierra Leone's digital history. The World Bank approved <b>US$137 million for WARDIP2</b> on 10 March 2026. The <b>US$50 million SLDTP</b> has connected 50 government MDAs to broadband. The <b>US$150 million F&#x25B;lei TechCity</b> is advancing in Bo District. The <b>20th ECOWAS ICT Ministerial</b> is convening in Freetown. An <b>AI Readiness Assessment</b> is underway. The <b>NC3</b> is producing cybersecurity-certified professionals. The <b>Invest Salone</b> study identifies the ecosystem as "poised for growth." The infrastructure investment is arriving. The question this report answers is whether the human capital, entrepreneurial talent, and institutional coordination layer is ready to match it. The answer, with caveats this report addresses directly, is yes.</p>
+            <p>This diagnostic lands at a convergence of national momentum unprecedented in Sierra Leone's digital history. The World Bank approved <b>US$137 million for WARDIP2</b> on 10 March 2026. The <b>US$50 million SLDTP</b> has connected 50 government MDAs to broadband. The <b>US$150 million Felei TechCity</b> is advancing in Bo District. The <b>20th ECOWAS ICT Ministerial</b> is convening in Freetown. An <b>AI Readiness Assessment</b> is underway. The <b>NC3</b> is producing cybersecurity-certified professionals. The <b>Invest Salone</b> study identifies the ecosystem as "poised for growth." The infrastructure investment is arriving. The question this report answers is whether the human capital, entrepreneurial talent, and institutional coordination layer is ready to match it. The answer, with caveats this report addresses directly, is yes.</p>
           </div>
         </div>
       </div>
@@ -134,7 +125,7 @@ export default function HomePage() {
           </div>
 
           <p className="report-h3s">Active National Programmes</p>
-          <p className="report-pr"><b>SLDTP</b> (US$50M, 2022–2027): Broadband expansion, digital skills, e-government, enabling environment. Connected 50 MDAs. <b>WARDIP2</b> (US$137M, March 2026): 5.2M connected, 5.4M digital users, cross-border services. <b>F&#x25B;lei TechCity</b> ($150M): 130-acre SEZ — incubation, BPO, data centre (Africell), training. <b>Also:</b> AI Readiness Assessment (Compute, Capacity, Context); NC3 cyber certifications; Nigeria–SL Digital Bilateral; blockchain MoU (MoCTI–SIGN); Big 5 Innovation Challenge; ECOWAS ICT Ministerial (Freetown, March 2026); Invest Salone ecosystem study (fintech as priority sector; SL startups: 15 of 30 at 2024 Startup World Cup).</p>
+          <p className="report-pr"><b>SLDTP</b> (US$50M, 2022–2027): Broadband expansion, digital skills, e-government, enabling environment. Connected 50 MDAs. <b>WARDIP2</b> (US$137M, March 2026): 5.2M connected, 5.4M digital users, cross-border services. <b>Felei TechCity</b> ($150M): 130-acre SEZ — incubation, BPO, data centre (Africell), training. <b>Also:</b> AI Readiness Assessment (Compute, Capacity, Context); NC3 cyber certifications; Nigeria–SL Digital Bilateral; blockchain MoU (MoCTI–SIGN); Big 5 Innovation Challenge; ECOWAS ICT Ministerial (Freetown, March 2026); Invest Salone ecosystem study (fintech as priority sector; SL startups: 15 of 30 at 2024 Startup World Cup).</p>
         </div>
       </div>
 
@@ -176,9 +167,16 @@ export default function HomePage() {
             <div className="report-br"><div className="report-bl">Business Owner</div><div className="report-bt"><div className="report-bf" style={{ width: '58%', background: '#1ABC9C' }}>35%</div></div></div>
             <div className="report-br"><div className="report-bl">Diaspora Professional</div><div className="report-bt"><div className="report-bf" style={{ width: '50%', background: '#27AE60' }}>30%</div></div></div>
             <div className="report-br"><div className="report-bl">Student</div><div className="report-bt"><div className="report-bf" style={{ width: '33%', background: '#F39C12' }}>20%</div></div></div>
+            <div className="report-br"><div className="report-bl">Dev / NGO</div><div className="report-bt"><div className="report-bf" style={{ width: '33%', background: '#E74C3C' }}>20%</div></div></div>
+            <div className="report-br"><div className="report-bl">Government</div><div className="report-bt"><div className="report-bf" style={{ width: '25%', background: '#8E44AD' }}>15%</div></div></div>
+            <div className="report-br"><div className="report-bl">Investor / VC</div><div className="report-bt"><div className="report-bf" style={{ width: '17%', background: '#D35400' }}>10%</div></div></div>
+            <div className="report-br"><div className="report-bl">Academic</div><div className="report-bt"><div className="report-bf" style={{ width: '17%', background: '#16A085' }}>10%</div></div></div>
+            <div className="report-br"><div className="report-bl">Corporate</div><div className="report-bt"><div className="report-bf" style={{ width: '17%', background: '#2C3E50' }}>10%</div></div></div>
           </div>
-          
-          <p className="report-pr"><b>What the diagnostic asked:</b> "Which best describes you currently?" with 11 options and the instruction to select all that apply. <b>What the community told us:</b> Half are private-sector professionals. Nearly half are startup founders. A third own businesses. A third are diaspora-connected.</p>
+
+          <p className="report-pr"><b>What the community told us:</b> Half are private-sector professionals. Nearly half are startup founders. A third own businesses. A third are diaspora-connected. One in five are students. One in five come from the development/NGO sector. Government officials, investors, academics, and corporate employers each appear at 10-15%.</p>
+
+          <p className="report-pr"><b>What this means for SLINT:</b> The organisation cannot be designed as a narrow professional guild. It must operate as a <b>three-layer platform</b>: a Talent Layer, a Venture Layer, and a Systems Layer.</p>
 
           <div className="report-cc">
             <h3>Experience Distribution</h3>
@@ -188,9 +186,17 @@ export default function HomePage() {
             <div className="report-br"><div className="report-bl">Under 2 years</div><div className="report-bt"><div className="report-bf" style={{ width: '25%', background: '#94A3B8' }}>15%</div></div></div>
           </div>
 
+          <div className="report-cc">
+            <h3>Geographic Distribution</h3>
+            <div className="report-br"><div className="report-bl">Freetown</div><div className="report-bt"><div className="report-bf" style={{ width: '67%', background: '#1B4F72' }}>40%</div></div></div>
+            <div className="report-br"><div className="report-bl">US East Coast</div><div className="report-bt"><div className="report-bf" style={{ width: '50%', background: '#2E86C1' }}>30%</div></div></div>
+            <div className="report-br"><div className="report-bl">West Africa</div><div className="report-bt"><div className="report-bf" style={{ width: '25%', background: '#1ABC9C' }}>15%</div></div></div>
+            <div className="report-br"><div className="report-bl">Other Intl</div><div className="report-bt"><div className="report-bf" style={{ width: '17%', background: '#F39C12' }}>10%</div></div></div>
+          </div>
+
           <div className="report-co">
             <h4>Action Point: National and Diaspora Visibility Campaign</h4>
-            <p>SLINT will launch a multi-channel membership drive including <b>outdoor billboards</b>, <b>TV and radio jingles</b>, and <b>chapter launch events</b> in DC, New York, London, and Lagos. The goal: increase active membership to 500+ verified members within the first 12 months.</p>
+            <p>SLINT will launch a multi-channel membership drive including <b>outdoor billboards</b>, <b>TV and radio jingles</b>, and <b>chapter launch events</b>. The goal: increase active membership to 500+ verified members within the first 12 months.</p>
           </div>
         </div>
       </div>
@@ -210,6 +216,7 @@ export default function HomePage() {
             <h3>Funding Range Distribution (%)</h3>
             <div className="report-br"><div className="report-bl">Under $10K</div><div className="report-bt"><div className="report-bf" style={{ width: '33%', background: '#2E86C1' }}>20%</div></div></div>
             <div className="report-br"><div className="report-bl" style={{ fontWeight: 700 }}>$10K–$50K</div><div className="report-bt"><div className="report-bf" style={{ width: '50%', background: '#1B4F72' }}>30% Catalytic</div></div></div>
+            <div className="report-br"><div className="report-bl" style={{ fontWeight: 700 }}>$50K–$100K</div><div className="report-bt"><div className="report-bf" style={{ width: '8%', background: '#8E44AD' }}>5%</div></div></div>
             <div className="report-br"><div className="report-bl">$1M+</div><div className="report-bt"><div className="report-bf" style={{ width: '17%', background: '#1ABC9C' }}>10%</div></div></div>
           </div>
 
@@ -249,6 +256,8 @@ export default function HomePage() {
             <div className="report-br"><div className="report-bl">10–25 hrs</div><div className="report-bt"><div className="report-bf" style={{ width: '50%', background: '#1B4F72' }}>30%</div></div></div>
             <div className="report-br"><div className="report-bl">Committee</div><div className="report-bt"><div className="report-bf" style={{ width: '42%', background: '#2E86C1' }}>25%</div></div></div>
             <div className="report-br"><div className="report-bl">25–50 hrs</div><div className="report-bt"><div className="report-bf" style={{ width: '25%', background: '#1ABC9C' }}>15%</div></div></div>
+            <div className="report-br"><div className="report-bl">5–10 hrs</div><div className="report-bt"><div className="report-bf" style={{ width: '25%', background: '#94A3B8' }}>15%</div></div></div>
+            <div className="report-br"><div className="report-bl">50–100 hrs</div><div className="report-bt"><div className="report-bf" style={{ width: '17%', background: '#F39C12' }}>10%</div></div></div>
           </div>
           
           <p className="report-pr">55% are willing to serve at committee level or commit 25+ hours annually. This is exceptional and provides SLINT with the human capital needed to scale.</p>
@@ -269,11 +278,167 @@ export default function HomePage() {
             <div className="report-br"><div className="report-bl">Entrepreneurship</div><div className="report-bt"><div className="report-bf" style={{ width: '90%', background: '#1ABC9C' }}>Very High</div></div></div>
             <div className="report-br"><div className="report-bl">AI & Emerging</div><div className="report-bt"><div className="report-bf" style={{ width: '85%', background: '#1ABC9C' }}>Very High</div></div></div>
             <div className="report-br"><div className="report-bl">Cybersecurity</div><div className="report-bt"><div className="report-bf" style={{ width: '75%', background: '#27AE60' }}>High</div></div></div>
+            <div className="report-br"><div className="report-bl">Innovation</div><div className="report-bt"><div className="report-bf" style={{ width: '70%', background: '#27AE60' }}>High</div></div></div>
+          </div>
+
+          <div className="report-cc">
+            <h3>Top Ecosystem Constraints</h3>
+            <div className="report-br"><div className="report-bl">Capital</div><div className="report-bt"><div className="report-bf" style={{ width: '90%', background: '#DC2626' }}>Critical</div></div></div>
+            <div className="report-br"><div className="report-bl">Skills Gap</div><div className="report-bt"><div className="report-bf" style={{ width: '85%', background: '#DC2626' }}>Critical</div></div></div>
+            <div className="report-br"><div className="report-bl">Infrastructure</div><div className="report-bt"><div className="report-bf" style={{ width: '75%', background: '#E74C3C' }}>High</div></div></div>
           </div>
 
           <div className="report-co">
             <h4>The Mentorship Insight</h4>
             <p>While 65% need funding, <b>mentorship ranks number one</b> — above direct capital access. SLINT will build a structured mentoring programme pairing experienced members with earlier-stage founders.</p>
+          </div>
+        </div>
+      </div>
+
+      {/* ═══ 10. ECOSYSTEM MATURITY ═══ */}
+      <div className="report-pg">
+        <div className="report-sh"><div className="sn">SECTION 10</div><h2>Ecosystem Maturity</h2></div>
+        <div className="report-sb">
+          <div className="report-gr">
+            <div className="report-gc">
+              <div className="report-cc">
+                <h3>Founder Origin</h3>
+                <div className="report-br"><div className="report-bl">Home-grown</div><div className="report-bt"><div className="report-bf" style={{ width: '72%', background: '#1B4F72' }}>72%</div></div></div>
+                <div className="report-br"><div className="report-bl">Repat/Diaspora</div><div className="report-bt"><div className="report-bf" style={{ width: '18%', background: '#27AE60' }}>18%</div></div></div>
+                <div className="report-br"><div className="report-bl">Expat</div><div className="report-bt"><div className="report-bf" style={{ width: '10%', background: '#F39C12' }}>10%</div></div></div>
+              </div>
+            </div>
+            <div className="report-gc">
+              <div className="report-cc">
+                <h3>Business Stage (Active Operators)</h3>
+                <div className="report-br"><div className="report-bl">Pre-revenue</div><div className="report-bt"><div className="report-bf" style={{ width: '42%', background: '#F39C12' }}>25%</div></div></div>
+                <div className="report-br"><div className="report-bl">0–1 yr</div><div className="report-bt"><div className="report-bf" style={{ width: '33%', background: '#E74C3C' }}>20%</div></div></div>
+                <div className="report-br"><div className="report-bl">1–3 yrs</div><div className="report-bt"><div className="report-bf" style={{ width: '33%', background: '#27AE60' }}>20%</div></div></div>
+                <div className="report-br"><div className="report-bl">3–7 yrs</div><div className="report-bt"><div className="report-bf" style={{ width: '33%', background: '#1ABC9C' }}>20%</div></div></div>
+                <div className="report-br"><div className="report-bl">7+ yrs</div><div className="report-bt"><div className="report-bf" style={{ width: '25%', background: '#1B4F72' }}>15%</div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* ═══ 11. BENCHMARKING ═══ */}
+      <div className="report-pg">
+        <div className="report-sh"><div className="sn">SECTION 11</div><h2>Comparative Benchmarking</h2></div>
+        <div className="report-sb">
+          <table className="report-table">
+            <thead>
+              <tr><th>Indicator</th><th>Sierra Leone</th><th>Kenya</th><th>Nigeria</th><th>Rwanda</th><th>Senegal</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><b>Internet</b></td><td>~21%</td><td>~42%</td><td>~55%</td><td>~33%</td><td>~58%</td></tr>
+              <tr><td><b>2025 VC</b></td><td style={{ color: '#DC2626' }}>Not tracked</td><td>~$1.04B</td><td>~$572M</td><td>&lt;$50M</td><td>&lt;$50M</td></tr>
+              <tr><td><b>Prof. Body</b></td><td style={{ color: '#1ABC9C', fontWeight: 700 }}>SLINT</td><td>KICTANet</td><td>CPN</td><td>ICT Chamber</td><td>OPTIC</td></tr>
+              <tr><td><b>Nat. ID</b></td><td><b>93%</b></td><td>~90%</td><td>~50%</td><td>~97%</td><td>~75%</td></tr>
+            </tbody>
+          </table>
+          <div className="report-gr">
+            <div className="report-gc" style={{ borderTop: '3px solid #1B4F72' }}><h4 style={{ color: '#1B4F72' }}>Rwanda — The Model</h4><p>ICT Chamber provides govt dialogue, export promotion, and financial access. Lesson: Integrate infrastructure + talent + governance.</p></div>
+            <div className="report-gc" style={{ borderTop: '3px solid #2E86C1' }}><h4 style={{ color: '#2E86C1' }}>Kenya — The Warning</h4><p>Leads in debt financing but suffers from fragmentation. Lesson: Ambition without coordination architecture disperses impact.</p></div>
+          </div>
+        </div>
+      </div>
+
+      {/* ═══ 12. PROGRAMMING ═══ */}
+      <div className="report-pg">
+        <div className="report-sh"><div className="sn">SECTION 12</div><h2>Programming Recommendations</h2></div>
+        <div className="report-sb">
+          <div className="report-ln" style={{ borderColor: '#1B4F72' }}>
+            <div className="report-lh"><div className="report-lnum" style={{ background: '#1B4F72' }}>1</div><h4 style={{ color: '#1B4F72' }}>Professional Identity</h4></div>
+            <p>Tiered membership (Associate, Fellow, Corporate). Personal membership cards as access instruments. Enforceable Code of Ethics. <b>Target: 500+ fee-paying members by Q4.</b></p>
+          </div>
+          <div className="report-ln" style={{ borderColor: '#2E86C1' }}>
+            <div className="report-lh"><div className="report-lnum" style={{ background: '#2E86C1' }}>2</div><h4 style={{ color: '#2E86C1' }}>Skills & Talent</h4></div>
+            <p>Four key tracks: Digital Employability (entry), Technical Depth (expert), Founder Readiness (entrepreneur), and Leadership (C-suite). Partner with NC3 and WARDIP.</p>
+          </div>
+          <div className="report-ln" style={{ borderColor: '#C8910A' }}>
+            <div className="report-lh"><div className="report-lnum" style={{ background: '#C8910A' }}>3</div><h4 style={{ color: '#C8910A' }}>Capital Pipeline</h4></div>
+            <p>Three capital tiers: Micro-grants ($1K-$10K), Seed-matching ($10K-$100K), and Strategic ($100K+) via Venture Capital matching for SL founders.</p>
+          </div>
+          <div className="report-ln" style={{ borderColor: '#1ABC9C' }}>
+            <div className="report-lh"><div className="report-lnum" style={{ background: '#1ABC9C' }}>4</div><h4 style={{ color: '#1ABC9C' }}>Diaspora Bridge</h4></div>
+            <p>Structured mentoring and angel investment via SL tech diaspora in UK, US, and EU. Regional chapters for market access and knowledge transfer.</p>
+          </div>
+        </div>
+      </div>
+
+      {/* ═══ 13. MDA ═══ */}
+      <div className="report-pg">
+        <div className="report-sh"><div className="sn">SECTION 13</div><h2>Government & MDA Partnerships</h2></div>
+        <div className="report-sb">
+          <div className="report-mg">
+            <div className="report-mc" style={{ borderTopColor: '#1B4F72' }}>
+              <div className="report-ab" style={{ color: '#1B4F72' }}>MoCTI</div>
+              <h4>Communication & Tech</h4>
+              <p>Primary convening partner. Alignment on Talent Pool mapping and TechCity pipeline.</p>
+            </div>
+            <div className="report-mc" style={{ borderTopColor: '#2E86C1' }}>
+              <div className="report-ab" style={{ color: '#2E86C1' }}>DSTI</div>
+              <h4>Science & Innovation</h4>
+              <p>Co-delivery of national innovation challenges and AI/Cybersecurity training tracks.</p>
+            </div>
+            <div className="report-mc" style={{ borderTopColor: '#1ABC9C' }}>
+              <div className="report-ab" style={{ color: '#1ABC9C' }}>NC3</div>
+              <h4>Cybersecurity Centre</h4>
+              <p>Graduate employment pathway and post-certification professional identification.</p>
+            </div>
+            <div className="report-mc" style={{ borderTopColor: '#27AE60' }}>
+              <div className="report-ab" style={{ color: '#27AE60' }}>LABOUR</div>
+              <h4>Employment & Local Content</h4>
+              <p>Workforce skills mapping and validation of professional tech competencies.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* ═══ 14. PARTNERS ═══ */}
+      <div className="report-pg">
+        <div className="report-sh"><div className="sn">SECTION 14</div><h2>External Partnerships</h2></div>
+        <div className="report-sb">
+          <table className="report-table">
+            <thead>
+              <tr><th>Category</th><th>Target Partners</th><th>Strategic Alignment</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><b>DFIs</b></td><td>World Bank, IFC, AfDB, UNDP</td><td>Evidence-based advocacy for early-stage tech financing.</td></tr>
+              <tr><td><b>Regional</b></td><td>Smart Africa, ECOWAS, AU</td><td>Methodology alignment and regional ecosystem positioning.</td></tr>
+              <tr><td><b>Corporate</b></td><td>Orange, Africell, Google, AWS</td><td>Corporate membership and joint certification programs.</td></tr>
+              <tr><td><b>Investors</b></td><td>Launch Africa, Renew, ABAN</td><td>Angel matching and investor-readiness cohorts for SL founders.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      {/* ═══ 15. MANIFESTO ═══ */}
+      <div className="report-pg">
+        <div className="report-sh"><div className="sn">SECTION 15</div><h2>Strategic Manifesto: 2026–2029</h2></div>
+        <div className="report-sb">
+          <div className="report-pg2">
+            <div className="report-pl">
+              <div className="report-pn">01</div>
+              <h4>Professional Home</h4>
+              <p>Building the most trusted national platform for the tech community.</p>
+            </div>
+            <div className="report-pl">
+              <div className="report-pn">02</div>
+              <h4>Measurable Value</h4>
+              <p>Membership unlocks professional recognition, market access, and capital.</p>
+            </div>
+            <div className="report-pl">
+              <div className="report-pn">03</div>
+              <h4>Founder Pipeline</h4>
+              <p>From idea to investable venture: providing the mentorship and matching.</p>
+            </div>
+            <div className="report-pl">
+              <div className="report-pn">04</div>
+              <h4>Diaspora Force</h4>
+              <p>Leveraging high-value mentors and investors through structured chapters.</p>
+            </div>
           </div>
         </div>
       </div>
@@ -284,12 +449,13 @@ export default function HomePage() {
         <div className="report-sb">
           <table className="report-table">
             <thead>
-              <tr><th>Phase</th><th>Timeline</th><th>Actions</th></tr>
+              <tr><th>Phase</th><th>Timeline</th><th>Key Actions</th></tr>
             </thead>
             <tbody>
-              <tr><td style={{ fontWeight: 700, color: '#1B4F72' }}>Foundation</td><td>Days 1–30</td><td>Membership framework. Publish diagnostic. Announce committees.</td></tr>
-              <tr><td style={{ fontWeight: 700, color: '#2E86C1' }}>Structure</td><td>Days 31–60</td><td>Committees with TORs. Registration portal. Chapter leadership named.</td></tr>
-              <tr><td style={{ fontWeight: 700, color: '#1ABC9C' }}>Activation</td><td>Days 61–90</td><td>First Founder Showcase. Skills Workshop. Billboard rollout in Freetown.</td></tr>
+              <tr><td style={{ fontWeight: 700, color: '#1B4F72' }}>Foundation</td><td>Days 1–30</td><td>Adopt membership tiers. Publish Diagnostic Report.</td></tr>
+              <tr><td style={{ fontWeight: 700, color: '#2E86C1' }}>Structure</td><td>Days 31–60</td><td>Appoint Committees with TORs. Digital registration portal.</td></tr>
+              <tr><td style={{ fontWeight: 700, color: '#1ABC9C' }}>Activation</td><td>Days 61–90</td><td>Founder Showcase. Skills Validation workshop. Billboard rollout.</td></tr>
+              <tr><td style={{ fontWeight: 700, color: '#C8910A' }}>Visibility</td><td>Days 91–100</td><td>Launch Annual Calendar. Card production. Media campaign.</td></tr>
             </tbody>
           </table>
 
@@ -301,7 +467,19 @@ export default function HomePage() {
         </div>
       </div>
 
-      <LoginModal isOpen={isLoginOpen} onClose={() => setIsLoginOpen(false)} />
+      {/* ═══ APPENDIX ═══ */}
+      <div className="report-pg">
+        <div className="report-sh"><div className="sn">APPENDIX</div><h2>References & Sources</h2></div>
+        <div className="report-sb">
+          <p style={{ fontSize: '10px', lineHeight: '1.8', color: '#475569' }}>
+            DataReportal (2025). "Digital 2025: Sierra Leone." | Disrupt Africa (2025). "Funding Report." | Invest Salone (2026). "Ecosystem Mapping Study." | MoCTI (2025). "National AI Readiness Assessment." | Partech Partners (2025). "Africa Tech VC Report." | World Bank (2024). "WARDIP2 & SLDTP Project Docs."
+          </p>
+          <div style={{ height: '24px' }}></div>
+          <p style={{ fontSize: '9px', color: '#94A3B8', textAlign: 'center' }}>
+            Citation: SLINT (2026). <i>Membership Diagnostic Report: Towards a Federated Tech Ecosystem.</i> Available at slint.org
+          </p>
+        </div>
+      </div>
     </div>
   );
 }
