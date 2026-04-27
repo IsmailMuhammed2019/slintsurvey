@@ -245,7 +245,7 @@ export function SurveyApp() {
               <Card className="border-slate-200 shadow-sm">
                 <CardHeader>
                   <CardTitle>Thank you for your submission</CardTitle>
-                  <CardDescription>Your response was saved to the local PostgreSQL database.</CardDescription>
+                  <CardDescription>Your response has been successfully recorded and securely stored.</CardDescription>
                 </CardHeader>
                 <CardContent className="flex gap-2">
                   <Button onClick={() => setDone(false)}>Submit Another</Button>
