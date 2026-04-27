@@ -3,7 +3,7 @@
 This app is a migration of the SLINT institutional survey into Next.js with:
 
 - shadcn UI components
-- PostgreSQL persistence
+- Secure and scalable data persistence layer
 - Prisma ORM
 - Docker Compose for both app and database
 
