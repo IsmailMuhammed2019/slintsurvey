@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "SLINT Diagnostic Survey",
-  description: "SLINT institutional diagnostic survey with local PostgreSQL storage",
+  title: "SLINT Institutional Diagnostic Survey",
+  description: "Advanced institutional diagnostic survey platform for comprehensive organizational health assessment and strategic insights.",
   icons: {
     icon: "/icon.svg",
     shortcut: "/icon.svg",

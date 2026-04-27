@@ -1,4 +1,4 @@
-# SLINT Survey (Next.js + shadcn + Prisma)
+# SLINT Institutional Diagnostic Survey (Next.js + shadcn + Prisma)
 
 This app is a migration of the SLINT institutional survey into Next.js with:
 
