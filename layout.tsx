@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "SLINT Diagnostic Survey",
-  description: "SLINT institutional diagnostic survey with local PostgreSQL storage",
+  description: "SLINT institutional diagnostic survey with easy and friendly survey compliance walkthrough",
 };
 
 export default function RootLayout({
